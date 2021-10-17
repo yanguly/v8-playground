@@ -1,0 +1,1179 @@
+Synopsis:
+  shell [options] [--shell] [<file>...]
+  d8 [options] [-e <string>] [--shell] [[--module|--web-snapshot] <file>...]
+
+  -e        execute a string in V8
+  --shell   run an interactive JavaScript shell
+  --module  execute a file as a JavaScript module
+  --web-snapshot  execute a file as a web snapshot
+
+The following syntax for options is accepted (both '-' and '--' are ok):
+  --flag        (bool flags only)
+  --no-flag     (bool flags only)
+  --flag=value  (non-bool flags only, no spaces around '=')
+  --flag value  (non-bool flags only)
+  --            (captures all remaining args in JavaScript)
+
+Options:
+  --abort-on-contradictory-flags (Disallow flags or implications overriding each other.)
+        type: bool  default: --abort-on-contradictory-flags
+  --allow-overwriting-for-next-flag (temporary disable flag contradiction to allow overwriting just the next flag)
+        type: bool  default: --noallow-overwriting-for-next-flag
+  --use-strict (enforce strict mode)
+        type: bool  default: --nouse-strict
+  --harmony (enable all completed harmony features)
+        type: bool  default: --noharmony
+  --harmony-shipping (enable all shipped harmony features)
+        type: bool  default: --harmony-shipping
+  --harmony-weak-refs-with-cleanup-some (enable "harmony weak references with FinalizationRegistry.prototype.cleanupSome" (in progress))
+        type: bool  default: --noharmony-weak-refs-with-cleanup-some
+  --harmony-import-assertions (enable "harmony import assertions" (in progress))
+        type: bool  default: --noharmony-import-assertions
+  --harmony-rab-gsab (enable "harmony ResizableArrayBuffer / GrowableSharedArrayBuffer" (in progress))
+        type: bool  default: --noharmony-rab-gsab
+  --harmony-temporal (enable "Temporal" (in progress))
+        type: bool  default: --noharmony-temporal
+  --harmony-intl-best-fit-matcher (enable "Intl BestFitMatcher")
+        type: bool  default: --noharmony-intl-best-fit-matcher
+  --harmony-intl-enumeration (enable "Intl Enumberation API")
+        type: bool  default: --noharmony-intl-enumeration
+  --harmony-intl-locale-info (enable "Intl locale info")
+        type: bool  default: --noharmony-intl-locale-info
+  --harmony-sharedarraybuffer (enable "harmony sharedarraybuffer")
+        type: bool  default: --harmony-sharedarraybuffer
+  --harmony-atomics (enable "harmony atomics")
+        type: bool  default: --harmony-atomics
+  --harmony-private-brand-checks (enable "harmony private brand checks")
+        type: bool  default: --harmony-private-brand-checks
+  --harmony-top-level-await (enable "harmony top level await")
+        type: bool  default: --harmony-top-level-await
+  --harmony-relative-indexing-methods (enable "harmony relative indexing methods")
+        type: bool  default: --harmony-relative-indexing-methods
+  --harmony-error-cause (enable "harmony error cause property")
+        type: bool  default: --harmony-error-cause
+  --harmony-object-has-own (enable "harmony Object.hasOwn")
+        type: bool  default: --harmony-object-has-own
+  --harmony-class-static-blocks (enable "harmony static initializer blocks")
+        type: bool  default: --harmony-class-static-blocks
+  --harmony-array-find-last (enable "harmony array find last helpers")
+        type: bool  default: --harmony-array-find-last
+  --harmony-intl-dateformat-day-period (enable "Add dayPeriod option to DateTimeFormat")
+        type: bool  default: --harmony-intl-dateformat-day-period
+  --harmony-intl-displaynames-v2 (enable "Intl.DisplayNames v2")
+        type: bool  default: --harmony-intl-displaynames-v2
+  --harmony-intl-more-timezone (enable "Extend Intl.DateTimeFormat timeZoneName Option")
+        type: bool  default: --harmony-intl-more-timezone
+  --builtin-subclassing (subclassing support in built-in methods)
+        type: bool  default: --builtin-subclassing
+  --enable-sharedarraybuffer-per-context (enable the SharedArrayBuffer constructor per context)
+        type: bool  default: --noenable-sharedarraybuffer-per-context
+  --icu-timezone-data (get information about timezones from ICU)
+        type: bool  default: --icu-timezone-data
+  --stress-snapshot (disables sharing of the read-only heap for testing)
+        type: bool  default: --nostress-snapshot
+  --lite-mode (enables trade-off of performance for memory savings)
+        type: bool  default: --nolite-mode
+  --future (Implies all staged features that we want to ship in the not-too-far future)
+        type: bool  default: --nofuture
+  --jitless (Disable runtime allocation of executable memory.)
+        type: bool  default: --nojitless
+  --assert-types (generate runtime type assertions to test the typer)
+        type: bool  default: --noassert-types
+  --trace-compilation-dependencies (trace code dependencies)
+        type: bool  default: --notrace-compilation-dependencies
+  --allocation-site-pretenuring (pretenure with allocation sites)
+        type: bool  default: --allocation-site-pretenuring
+  --page-promotion (promote pages based on utilization)
+        type: bool  default: --page-promotion
+  --page-promotion-threshold (min percentage of live bytes on a page to enable fast evacuation)
+        type: int  default: --page-promotion-threshold=70
+  --trace-pretenuring (trace pretenuring decisions of HAllocate instructions)
+        type: bool  default: --notrace-pretenuring
+  --trace-pretenuring-statistics (trace allocation site pretenuring statistics)
+        type: bool  default: --notrace-pretenuring-statistics
+  --track-field-types (track field types)
+        type: bool  default: --track-field-types
+  --trace-block-coverage (trace collected block coverage information)
+        type: bool  default: --notrace-block-coverage
+  --trace-protector-invalidation (trace protector cell invalidations)
+        type: bool  default: --notrace-protector-invalidation
+  --trace-web-snapshot (trace web snapshot deserialization)
+        type: bool  default: --notrace-web-snapshot
+  --feedback-normalization (feed back normalization to constructors)
+        type: bool  default: --nofeedback-normalization
+  --unbox-double-arrays (automatically unbox arrays of doubles)
+        type: bool  default: --unbox-double-arrays
+  --ticks-before-optimization (the number of times we have to go through the interrupt budget before considering this function for optimization)
+        type: int  default: --ticks-before-optimization=3
+  --bytecode-size-allowance-per-tick (increases the number of ticks required for optimization by bytecode.length/X)
+        type: int  default: --bytecode-size-allowance-per-tick=1100
+  --interrupt-budget (interrupt budget which should be used for the profiler counter)
+        type: int  default: --interrupt-budget=135168
+  --max-bytecode-size-for-early-opt (Maximum bytecode length for a function to be optimized on the first tick)
+        type: int  default: --max-bytecode-size-for-early-opt=81
+  --use-ic (use inline caching)
+        type: bool  default: --use-ic
+  --budget-for-feedback-vector-allocation (The budget in amount of bytecode executed by a function before we decide to allocate feedback vectors)
+        type: int  default: --budget-for-feedback-vector-allocation=940
+  --scale-factor-for-feedback-allocation (scale bytecode size for feedback vector allocation.)
+        type: int  default: --scale-factor-for-feedback-allocation=8
+  --feedback-allocation-on-bytecode-size (Instead of a fixed budget for lazy feedback vector allocation, scale it based in the bytecode size.)
+        type: bool  default: --feedback-allocation-on-bytecode-size
+  --lazy-feedback-allocation (Allocate feedback vectors lazily)
+        type: bool  default: --lazy-feedback-allocation
+  --ignition-elide-noneffectful-bytecodes (elide bytecodes which won't have any external effect)
+        type: bool  default: --ignition-elide-noneffectful-bytecodes
+  --ignition-reo (use ignition register equivalence optimizer)
+        type: bool  default: --ignition-reo
+  --ignition-filter-expression-positions (filter expression positions before the bytecode pipeline)
+        type: bool  default: --ignition-filter-expression-positions
+  --ignition-share-named-property-feedback (share feedback slots when loading the same named property from the same object)
+        type: bool  default: --ignition-share-named-property-feedback
+  --print-bytecode (print bytecode generated by ignition interpreter)
+        type: bool  default: --noprint-bytecode
+  --enable-lazy-source-positions (skip generating source positions during initial compile but regenerate when actually required)
+        type: bool  default: --enable-lazy-source-positions
+  --stress-lazy-source-positions (collect lazy source positions immediately after lazy compile)
+        type: bool  default: --nostress-lazy-source-positions
+  --print-bytecode-filter (filter for selecting which functions to print bytecode)
+        type: string  default: --print-bytecode-filter="*"
+  --trace-unoptimized (trace the bytecodes executed by all unoptimized execution)
+        type: bool  default: --notrace-unoptimized
+  --trace-ignition (trace the bytecodes executed by the ignition interpreter)
+        type: bool  default: --notrace-ignition
+  --trace-baseline-exec (trace the bytecodes executed by the baseline code)
+        type: bool  default: --notrace-baseline-exec
+  --trace-ignition-codegen (trace the codegen of ignition interpreter bytecode handlers)
+        type: bool  default: --notrace-ignition-codegen
+  --trace-ignition-dispatches-output-file (write the bytecode handler dispatch table to the specified file (d8 only) (requires building with v8_enable_ignition_dispatch_counting))
+        type: string  default: --trace-ignition-dispatches-output-file=""
+  --trace-track-allocation-sites (trace the tracking of allocation sites)
+        type: bool  default: --notrace-track-allocation-sites
+  --trace-migration (trace object migration)
+        type: bool  default: --notrace-migration
+  --trace-generalization (trace map generalization)
+        type: bool  default: --notrace-generalization
+  --turboprop (enable experimental turboprop mid-tier compiler)
+        type: bool  default: --noturboprop
+  --turboprop-mid-tier-reg-alloc (enable mid-tier register allocator for turboprop)
+        type: bool  default: --turboprop-mid-tier-reg-alloc
+  --turboprop-as-toptier (enable experimental turboprop compiler without further tierup to turbofan)
+        type: bool  default: --noturboprop-as-toptier
+  --turboprop-inline-scaling-factor (scale factor for reduction in bytecode that can be inline for TurboProp compared to TurboFan)
+        type: int  default: --turboprop-inline-scaling-factor=4
+  --interrupt-budget-scale-factor-for-top-tier (scale factor for profiler ticks when tiering up from midtier)
+        type: int  default: --interrupt-budget-scale-factor-for-top-tier=20
+  --sparkplug (enable Sparkplug baseline compiler)
+        type: bool  default: --sparkplug
+  --always-sparkplug (directly tier up to Sparkplug code)
+        type: bool  default: --noalways-sparkplug
+  --baseline-batch-compilation (batch compile Sparkplug code)
+        type: bool  default: --baseline-batch-compilation
+  --sparkplug-filter (filter for Sparkplug baseline compiler)
+        type: string  default: --sparkplug-filter="*"
+  --sparkplug-needs-short-builtins (only enable Sparkplug baseline compiler when --short-builtin-calls are also enabled)
+        type: bool  default: --nosparkplug-needs-short-builtins
+  --baseline-batch-compilation-threshold (the estimated instruction size of a batch to trigger compilation)
+        type: int  default: --baseline-batch-compilation-threshold=4096
+  --trace-baseline (trace baseline compilation)
+        type: bool  default: --notrace-baseline
+  --trace-baseline-batch-compilation (trace baseline batch compilation)
+        type: bool  default: --notrace-baseline-batch-compilation
+  --shared-string-table (internalize strings into shared table)
+        type: bool  default: --noshared-string-table
+  --concurrent-recompilation (optimizing hot functions asynchronously on a separate thread)
+        type: bool  default: --concurrent-recompilation
+  --trace-concurrent-recompilation (track concurrent recompilation)
+        type: bool  default: --notrace-concurrent-recompilation
+  --concurrent-recompilation-queue-length (the length of the concurrent compilation queue)
+        type: int  default: --concurrent-recompilation-queue-length=8
+  --concurrent-recompilation-delay (artificial compilation delay in ms)
+        type: int  default: --concurrent-recompilation-delay=0
+  --concurrent-inlining (run optimizing compiler's inlining phase on a separate thread)
+        type: bool  default: --concurrent-inlining
+  --stress-concurrent-inlining (create additional concurrent optimization jobs but throw away result)
+        type: bool  default: --nostress-concurrent-inlining
+  --stress-concurrent-inlining-attach-code (create additional concurrent optimization jobs)
+        type: bool  default: --nostress-concurrent-inlining-attach-code
+  --max-serializer-nesting (maximum levels for nesting child serializers)
+        type: int  default: --max-serializer-nesting=25
+  --trace-heap-broker-verbose (trace the heap broker verbosely (all reports))
+        type: bool  default: --notrace-heap-broker-verbose
+  --trace-heap-broker-memory (trace the heap broker memory (refs analysis and zone numbers))
+        type: bool  default: --notrace-heap-broker-memory
+  --trace-heap-broker (trace the heap broker (reports on missing data only))
+        type: bool  default: --notrace-heap-broker
+  --stress-runs (number of stress runs)
+        type: int  default: --stress-runs=0
+  --deopt-every-n-times (deoptimize every n times a deopt point is passed)
+        type: int  default: --deopt-every-n-times=0
+  --print-deopt-stress (print number of possible deopt points)
+        type: bool  default: --noprint-deopt-stress
+  --opt (use adaptive optimizations)
+        type: bool  default: --opt
+  --turbo-sp-frame-access (use stack pointer-relative access to frame wherever possible)
+        type: bool  default: --noturbo-sp-frame-access
+  --stress-turbo-late-spilling (optimize placement of all spill instructions, not just loop-top phis)
+        type: bool  default: --nostress-turbo-late-spilling
+  --turbo-filter (optimization filter for TurboFan compiler)
+        type: string  default: --turbo-filter="*"
+  --trace-turbo (trace generated TurboFan IR)
+        type: bool  default: --notrace-turbo
+  --trace-turbo-path (directory to dump generated TurboFan IR to)
+        type: string  default: --trace-turbo-path=""
+  --trace-turbo-filter (filter for tracing turbofan compilation)
+        type: string  default: --trace-turbo-filter="*"
+  --trace-turbo-graph (trace generated TurboFan graphs)
+        type: bool  default: --notrace-turbo-graph
+  --trace-turbo-scheduled (trace TurboFan IR with schedule)
+        type: bool  default: --notrace-turbo-scheduled
+  --trace-turbo-cfg-file (trace turbo cfg graph (for C1 visualizer) to a given file name)
+        type: string  default: --trace-turbo-cfg-file=""
+  --trace-turbo-types (trace TurboFan's types)
+        type: bool  default: --trace-turbo-types
+  --trace-turbo-scheduler (trace TurboFan's scheduler)
+        type: bool  default: --notrace-turbo-scheduler
+  --trace-turbo-reduction (trace TurboFan's various reducers)
+        type: bool  default: --notrace-turbo-reduction
+  --trace-turbo-trimming (trace TurboFan's graph trimmer)
+        type: bool  default: --notrace-turbo-trimming
+  --trace-turbo-jt (trace TurboFan's jump threading)
+        type: bool  default: --notrace-turbo-jt
+  --trace-turbo-ceq (trace TurboFan's control equivalence)
+        type: bool  default: --notrace-turbo-ceq
+  --trace-turbo-loop (trace TurboFan's loop optimizations)
+        type: bool  default: --notrace-turbo-loop
+  --trace-turbo-alloc (trace TurboFan's register allocator)
+        type: bool  default: --notrace-turbo-alloc
+  --trace-all-uses (trace all use positions)
+        type: bool  default: --notrace-all-uses
+  --trace-representation (trace representation types)
+        type: bool  default: --notrace-representation
+  --trace-turbo-stack-accesses (trace stack load/store counters for optimized code in run-time (x64 only))
+        type: bool  default: --notrace-turbo-stack-accesses
+  --turbo-verify (verify TurboFan graphs at each phase)
+        type: bool  default: --turbo-verify
+  --turbo-verify-machine-graph (verify TurboFan machine graph before instruction selection)
+        type: string  default: --turbo-verify-machine-graph=""
+  --trace-verify-csa (trace code stubs verification)
+        type: bool  default: --notrace-verify-csa
+  --csa-trap-on-node (trigger break point when a node with given id is created in given stub. The format is: StubName,NodeId)
+        type: string  default: --csa-trap-on-node=""
+  --turbo-stats (print TurboFan statistics)
+        type: bool  default: --noturbo-stats
+  --turbo-stats-nvp (print TurboFan statistics in machine-readable format)
+        type: bool  default: --noturbo-stats-nvp
+  --turbo-stats-wasm (print TurboFan statistics of wasm compilations)
+        type: bool  default: --noturbo-stats-wasm
+  --turbo-splitting (split nodes during scheduling in TurboFan)
+        type: bool  default: --turbo-splitting
+  --function-context-specialization (enable function context specialization in TurboFan)
+        type: bool  default: --nofunction-context-specialization
+  --turbo-inlining (enable inlining in TurboFan)
+        type: bool  default: --turbo-inlining
+  --max-inlined-bytecode-size (maximum size of bytecode for a single inlining)
+        type: int  default: --max-inlined-bytecode-size=460
+  --max-inlined-bytecode-size-cumulative (maximum cumulative size of bytecode considered for inlining)
+        type: int  default: --max-inlined-bytecode-size-cumulative=920
+  --max-inlined-bytecode-size-absolute (maximum absolute size of bytecode considered for inlining)
+        type: int  default: --max-inlined-bytecode-size-absolute=4600
+  --reserve-inline-budget-scale-factor (scale factor of bytecode size used to calculate the inlining budget)
+        type: float  default: --reserve-inline-budget-scale-factor=1.2
+  --max-inlined-bytecode-size-small (maximum size of bytecode considered for small function inlining)
+        type: int  default: --max-inlined-bytecode-size-small=27
+  --max-optimized-bytecode-size (maximum bytecode size to be considered for optimization; too high values may cause the compiler to hit (release) assertions)
+        type: int  default: --max-optimized-bytecode-size=61440
+  --min-inlining-frequency (minimum frequency for inlining)
+        type: float  default: --min-inlining-frequency=0.15
+  --polymorphic-inlining (polymorphic inlining)
+        type: bool  default: --polymorphic-inlining
+  --stress-inline (set high thresholds for inlining to inline as much as possible)
+        type: bool  default: --nostress-inline
+  --trace-turbo-inlining (trace TurboFan inlining)
+        type: bool  default: --notrace-turbo-inlining
+  --turbo-inline-array-builtins (inline array builtins in TurboFan code)
+        type: bool  default: --turbo-inline-array-builtins
+  --use-osr (use on-stack replacement)
+        type: bool  default: --use-osr
+  --trace-osr (trace on-stack replacement)
+        type: bool  default: --notrace-osr
+  --analyze-environment-liveness (analyze liveness of environment slots and zap dead values)
+        type: bool  default: --analyze-environment-liveness
+  --trace-environment-liveness (trace liveness of local variable slots)
+        type: bool  default: --notrace-environment-liveness
+  --turbo-load-elimination (enable load elimination in TurboFan)
+        type: bool  default: --turbo-load-elimination
+  --trace-turbo-load-elimination (trace TurboFan load elimination)
+        type: bool  default: --notrace-turbo-load-elimination
+  --turbo-profiling (enable basic block profiling in TurboFan)
+        type: bool  default: --noturbo-profiling
+  --turbo-profiling-verbose (enable basic block profiling in TurboFan, and include each function's schedule and disassembly in the output)
+        type: bool  default: --noturbo-profiling-verbose
+  --turbo-profiling-log-builtins (emit data about basic block usage in builtins to v8.log (requires that V8 was built with v8_enable_builtins_profiling=true))
+        type: bool  default: --noturbo-profiling-log-builtins
+  --turbo-verify-allocation (verify register allocation in TurboFan)
+        type: bool  default: --turbo-verify-allocation
+  --turbo-move-optimization (optimize gap moves in TurboFan)
+        type: bool  default: --turbo-move-optimization
+  --turbo-jt (enable jump threading in TurboFan)
+        type: bool  default: --turbo-jt
+  --turbo-loop-peeling (TurboFan loop peeling)
+        type: bool  default: --turbo-loop-peeling
+  --turbo-loop-variable (TurboFan loop variable optimization)
+        type: bool  default: --turbo-loop-variable
+  --turbo-loop-rotation (TurboFan loop rotation)
+        type: bool  default: --turbo-loop-rotation
+  --turbo-cf-optimization (optimize control flow in TurboFan)
+        type: bool  default: --turbo-cf-optimization
+  --turbo-escape (enable escape analysis)
+        type: bool  default: --turbo-escape
+  --turbo-allocation-folding (TurboFan allocation folding)
+        type: bool  default: --turbo-allocation-folding
+  --turbo-instruction-scheduling (enable instruction scheduling in TurboFan)
+        type: bool  default: --noturbo-instruction-scheduling
+  --turbo-stress-instruction-scheduling (randomly schedule instructions to stress dependency tracking)
+        type: bool  default: --noturbo-stress-instruction-scheduling
+  --turbo-store-elimination (enable store-store elimination in TurboFan)
+        type: bool  default: --turbo-store-elimination
+  --trace-store-elimination (trace store elimination)
+        type: bool  default: --notrace-store-elimination
+  --turbo-rewrite-far-jumps (rewrite far to near jumps (ia32,x64))
+        type: bool  default: --turbo-rewrite-far-jumps
+  --stress-gc-during-compilation (simulate GC/compiler thread race related to https://crbug.com/v8/8520)
+        type: bool  default: --nostress-gc-during-compilation
+  --turbo-fast-api-calls (enable fast API calls from TurboFan)
+        type: bool  default: --noturbo-fast-api-calls
+  --reuse-opt-code-count (don't discard optimized code for the specified number of deopts.)
+        type: int  default: --reuse-opt-code-count=0
+  --turbo-dynamic-map-checks (use dynamic map checks when generating code for property accesses if all handlers in an IC are the same for turboprop)
+        type: bool  default: --noturbo-dynamic-map-checks
+  --turbo-compress-translation-arrays (compress translation arrays (experimental))
+        type: bool  default: --noturbo-compress-translation-arrays
+  --turbo-inline-js-wasm-calls (inline JS->Wasm calls)
+        type: bool  default: --turbo-inline-js-wasm-calls
+  --turbo-optimize-apply (optimize Function.prototype.apply)
+        type: bool  default: --turbo-optimize-apply
+  --turbo-collect-feedback-in-generic-lowering (enable experimental feedback collection in generic lowering.)
+        type: bool  default: --turbo-collect-feedback-in-generic-lowering
+  --isolate-script-cache-ageing (enable ageing of the isolate script cache.)
+        type: bool  default: --isolate-script-cache-ageing
+  --script-delay (busy wait [ms] on every Script::Run)
+        type: float  default: --script-delay=0
+  --script-delay-once (busy wait [ms] on the first Script::Run)
+        type: float  default: --script-delay-once=0
+  --script-delay-fraction (busy wait after each Script::Run by the given fraction of the run's duration)
+        type: float  default: --script-delay-fraction=0
+  --optimize-for-size (Enables optimizations which favor memory size over execution speed)
+        type: bool  default: --nooptimize-for-size
+  --wasm-generic-wrapper (allow use of the generic js-to-wasm wrapper instead of per-signature wrappers)
+        type: bool  default: --wasm-generic-wrapper
+  --expose-wasm (expose wasm interface to JavaScript)
+        type: bool  default: --expose-wasm
+  --wasm-num-compilation-tasks (maximum number of parallel compilation tasks for wasm)
+        type: int  default: --wasm-num-compilation-tasks=128
+  --trace-wasm-native-heap (trace wasm native heap events)
+        type: bool  default: --notrace-wasm-native-heap
+  --wasm-write-protect-code-memory (write protect code memory on the wasm native heap with mprotect)
+        type: bool  default: --nowasm-write-protect-code-memory
+  --wasm-memory-protection-keys (protect wasm code memory with PKU if available, no protection without support; fallback to mprotect by adding --wasm-write-protect-code-memory)
+        type: bool  default: --nowasm-memory-protection-keys
+  --trace-wasm-serialization (trace serialization/deserialization)
+        type: bool  default: --notrace-wasm-serialization
+  --wasm-async-compilation (enable actual asynchronous compilation for WebAssembly.compile)
+        type: bool  default: --wasm-async-compilation
+  --wasm-test-streaming (use streaming compilation instead of async compilation for tests)
+        type: bool  default: --nowasm-test-streaming
+  --wasm-max-mem-pages (maximum number of 64KiB memory pages per wasm memory)
+        type: uint  default: --wasm-max-mem-pages=65536
+  --wasm-max-table-size (maximum table size of a wasm instance)
+        type: uint  default: --wasm-max-table-size=10000000
+  --wasm-max-code-space (maximum committed code space for wasm (in MB))
+        type: uint  default: --wasm-max-code-space=4095
+  --wasm-tier-up (enable tier up to the optimizing compiler (requires --liftoff to have an effect))
+        type: bool  default: --wasm-tier-up
+  --wasm-dynamic-tiering (enable dynamic tier up to the optimizing compiler)
+        type: bool  default: --nowasm-dynamic-tiering
+  --wasm-caching-threshold (the amount of wasm top tier code that triggers the next caching event)
+        type: int  default: --wasm-caching-threshold=1000000
+  --trace-wasm-compilation-times (print how long it took to compile each wasm function)
+        type: bool  default: --notrace-wasm-compilation-times
+  --wasm-tier-up-filter (only tier-up function with this index)
+        type: int  default: --wasm-tier-up-filter=-1
+  --trace-wasm-decoder (trace decoding of wasm code)
+        type: bool  default: --notrace-wasm-decoder
+  --trace-wasm-compiler (trace compiling of wasm code)
+        type: bool  default: --notrace-wasm-compiler
+  --trace-wasm-interpreter (trace interpretation of wasm code)
+        type: bool  default: --notrace-wasm-interpreter
+  --trace-wasm-streaming (trace streaming compilation of wasm code)
+        type: bool  default: --notrace-wasm-streaming
+  --liftoff (enable Liftoff, the baseline compiler for WebAssembly)
+        type: bool  default: --liftoff
+  --liftoff-only (disallow TurboFan compilation for WebAssembly (for testing))
+        type: bool  default: --noliftoff-only
+  --enable-testing-opcode-in-wasm (enables a testing opcode in wasm that is only implemented in TurboFan)
+        type: bool  default: --noenable-testing-opcode-in-wasm
+  --trace-liftoff (trace Liftoff, the baseline compiler for WebAssembly)
+        type: bool  default: --notrace-liftoff
+  --trace-wasm-memory (print all memory updates performed in wasm code)
+        type: bool  default: --notrace-wasm-memory
+  --wasm-tier-mask-for-testing (bitmask of functions to compile with TurboFan instead of Liftoff)
+        type: int  default: --wasm-tier-mask-for-testing=0
+  --wasm-debug-mask-for-testing (bitmask of functions to compile for debugging, only applies if the tier is Liftoff)
+        type: int  default: --wasm-debug-mask-for-testing=0
+  --validate-asm (validate asm.js modules before compiling)
+        type: bool  default: --validate-asm
+  --suppress-asm-messages (don't emit asm.js related messages (for golden file testing))
+        type: bool  default: --nosuppress-asm-messages
+  --trace-asm-time (print asm.js timing info to the console)
+        type: bool  default: --notrace-asm-time
+  --trace-asm-scanner (print tokens encountered by asm.js scanner)
+        type: bool  default: --notrace-asm-scanner
+  --trace-asm-parser (verbose logging of asm.js parse failures)
+        type: bool  default: --notrace-asm-parser
+  --stress-validate-asm (try to validate everything as asm.js)
+        type: bool  default: --nostress-validate-asm
+  --dump-wasm-module (dump wasm module bytes)
+        type: bool  default: --nodump-wasm-module
+  --dump-wasm-module-path (directory to dump wasm modules to)
+        type: string  default: --dump-wasm-module-path=""
+  --experimental-wasm-compilation-hints (enable prototype compilation hints section for wasm)
+        type: bool  default: --noexperimental-wasm-compilation-hints
+  --experimental-wasm-gc (enable prototype garbage collection for wasm)
+        type: bool  default: --noexperimental-wasm-gc
+  --experimental-wasm-nn-locals (enable prototype allow non-defaultable/non-nullable locals, validated with 'until end of block' semantics for wasm)
+        type: bool  default: --noexperimental-wasm-nn-locals
+  --experimental-wasm-unsafe-nn-locals (enable prototype allow non-defaultable/non-nullable locals, no validation for wasm)
+        type: bool  default: --noexperimental-wasm-unsafe-nn-locals
+  --experimental-wasm-assume-ref-cast-succeeds (enable prototype assume ref.cast always succeeds and skip the related type check (unsafe) for wasm)
+        type: bool  default: --noexperimental-wasm-assume-ref-cast-succeeds
+  --experimental-wasm-skip-null-checks (enable prototype skip null checks for call.ref and array and struct operations (unsafe) for wasm)
+        type: bool  default: --noexperimental-wasm-skip-null-checks
+  --experimental-wasm-skip-bounds-checks (enable prototype skip array bounds checks (unsafe) for wasm)
+        type: bool  default: --noexperimental-wasm-skip-bounds-checks
+  --experimental-wasm-typed-funcref (enable prototype typed function references for wasm)
+        type: bool  default: --noexperimental-wasm-typed-funcref
+  --experimental-wasm-memory64 (enable prototype memory64 for wasm)
+        type: bool  default: --noexperimental-wasm-memory64
+  --experimental-wasm-relaxed-simd (enable prototype relaxed simd for wasm)
+        type: bool  default: --noexperimental-wasm-relaxed-simd
+  --experimental-wasm-branch-hinting (enable prototype branch hinting for wasm)
+        type: bool  default: --noexperimental-wasm-branch-hinting
+  --experimental-wasm-stack-switching (enable prototype stack switching for wasm)
+        type: bool  default: --noexperimental-wasm-stack-switching
+  --experimental-wasm-return-call (enable prototype return call opcodes for wasm)
+        type: bool  default: --noexperimental-wasm-return-call
+  --experimental-wasm-type-reflection (enable prototype wasm type reflection in JS for wasm)
+        type: bool  default: --noexperimental-wasm-type-reflection
+  --experimental-wasm-simd (enable prototype SIMD opcodes for wasm)
+        type: bool  default: --experimental-wasm-simd
+  --experimental-wasm-reftypes (enable prototype reference type opcodes for wasm)
+        type: bool  default: --experimental-wasm-reftypes
+  --experimental-wasm-threads (enable prototype thread opcodes for wasm)
+        type: bool  default: --experimental-wasm-threads
+  --experimental-wasm-eh (enable prototype exception handling opcodes for wasm)
+        type: bool  default: --experimental-wasm-eh
+  --wasm-gc-js-interop (experimental WasmGC-JS interop)
+        type: bool  default: --nowasm-gc-js-interop
+  --wasm-staging (enable staged wasm features)
+        type: bool  default: --nowasm-staging
+  --wasm-opt (enable wasm optimization)
+        type: bool  default: --wasm-opt
+  --wasm-bounds-checks (enable bounds checks (disable for performance testing only))
+        type: bool  default: --wasm-bounds-checks
+  --wasm-stack-checks (enable stack checks (disable for performance testing only))
+        type: bool  default: --wasm-stack-checks
+  --wasm-enforce-bounds-checks (enforce explicit bounds check even if the trap handler is available)
+        type: bool  default: --nowasm-enforce-bounds-checks
+  --wasm-math-intrinsics (intrinsify some Math imports into wasm)
+        type: bool  default: --wasm-math-intrinsics
+  --wasm-inlining (enable inlining of wasm functions into wasm functions (experimental))
+        type: bool  default: --nowasm-inlining
+  --wasm-inlining-budget (maximum number of call targets to inline into a Wasm function)
+        type: int  default: --wasm-inlining-budget=3
+  --wasm-speculative-inlining (enable speculative inlining of call_ref targets (experimental))
+        type: bool  default: --nowasm-speculative-inlining
+  --trace-wasm-speculative-inlining (trace wasm speculative inlining)
+        type: bool  default: --notrace-wasm-speculative-inlining
+  --wasm-loop-unrolling (enable loop unrolling for wasm functions)
+        type: bool  default: --wasm-loop-unrolling
+  --wasm-fuzzer-gen-test (generate a test case when running a wasm fuzzer)
+        type: bool  default: --nowasm-fuzzer-gen-test
+  --print-wasm-code (print WebAssembly code)
+        type: bool  default: --noprint-wasm-code
+  --print-wasm-code-function-index (print WebAssembly code for function at index)
+        type: int  default: --print-wasm-code-function-index=-1
+  --print-wasm-stub-code (print WebAssembly stub code)
+        type: bool  default: --noprint-wasm-stub-code
+  --asm-wasm-lazy-compilation (enable lazy compilation for asm-wasm modules)
+        type: bool  default: --noasm-wasm-lazy-compilation
+  --wasm-lazy-compilation (enable lazy compilation for all wasm modules)
+        type: bool  default: --nowasm-lazy-compilation
+  --trace-wasm-lazy-compilation (trace lazy compilation of wasm functions)
+        type: bool  default: --notrace-wasm-lazy-compilation
+  --wasm-lazy-validation (enable lazy validation for lazily compiled wasm functions)
+        type: bool  default: --nowasm-lazy-validation
+  --wasm-simd-ssse3-codegen (allow wasm SIMD SSSE3 codegen)
+        type: bool  default: --nowasm-simd-ssse3-codegen
+  --wasm-code-gc (enable garbage collection of wasm code)
+        type: bool  default: --wasm-code-gc
+  --trace-wasm-code-gc (trace garbage collection of wasm code)
+        type: bool  default: --notrace-wasm-code-gc
+  --stress-wasm-code-gc (stress test garbage collection of wasm code)
+        type: bool  default: --nostress-wasm-code-gc
+  --wasm-max-initial-code-space-reservation (maximum size of the initial wasm code space reservation (in MB))
+        type: int  default: --wasm-max-initial-code-space-reservation=0
+  --experimental-wasm-allow-huge-modules (allow wasm modules bigger than 1GB, but below ~2GB)
+        type: bool  default: --noexperimental-wasm-allow-huge-modules
+  --trace-wasm (trace wasm function calls)
+        type: bool  default: --notrace-wasm
+  --trace-wasm-instances (trace creation and collection of wasm instances)
+        type: bool  default: --notrace-wasm-instances
+  --stress-sampling-allocation-profiler (Enables sampling allocation profiler with X as a sample interval)
+        type: int  default: --stress-sampling-allocation-profiler=0
+  --lazy-new-space-shrinking (Enables the lazy new space shrinking strategy)
+        type: bool  default: --nolazy-new-space-shrinking
+  --min-semi-space-size (min size of a semi-space (in MBytes), the new space consists of two semi-spaces)
+        type: size_t  default: --min-semi-space-size=0
+  --max-semi-space-size (max size of a semi-space (in MBytes), the new space consists of two semi-spaces)
+        type: size_t  default: --max-semi-space-size=0
+  --semi-space-growth-factor (factor by which to grow the new space)
+        type: int  default: --semi-space-growth-factor=2
+  --max-old-space-size (max size of the old space (in Mbytes))
+        type: size_t  default: --max-old-space-size=0
+  --max-heap-size (max size of the heap (in Mbytes) both max_semi_space_size and max_old_space_size take precedence. All three flags cannot be specified at the same time.)
+        type: size_t  default: --max-heap-size=0
+  --initial-heap-size (initial size of the heap (in Mbytes))
+        type: size_t  default: --initial-heap-size=0
+  --huge-max-old-generation-size (Increase max size of the old space to 4 GB for x64 systems withthe physical memory bigger than 16 GB)
+        type: bool  default: --huge-max-old-generation-size
+  --initial-old-space-size (initial old space size (in Mbytes))
+        type: size_t  default: --initial-old-space-size=0
+  --global-gc-scheduling (enable GC scheduling based on global memory)
+        type: bool  default: --global-gc-scheduling
+  --gc-global (always perform global GCs)
+        type: bool  default: --nogc-global
+  --random-gc-interval (Collect garbage after random(0, X) allocations. It overrides gc_interval.)
+        type: int  default: --random-gc-interval=0
+  --gc-interval (garbage collect after <n> allocations)
+        type: int  default: --gc-interval=-1
+  --retain-maps-for-n-gc (keeps maps alive for <n> old space garbage collections)
+        type: int  default: --retain-maps-for-n-gc=2
+  --trace-gc (print one trace line following each garbage collection)
+        type: bool  default: --notrace-gc
+  --trace-gc-nvp (print one detailed trace line in name=value format after each garbage collection)
+        type: bool  default: --notrace-gc-nvp
+  --trace-gc-ignore-scavenger (do not print trace line after scavenger collection)
+        type: bool  default: --notrace-gc-ignore-scavenger
+  --trace-idle-notification (print one trace line following each idle notification)
+        type: bool  default: --notrace-idle-notification
+  --trace-idle-notification-verbose (prints the heap state used by the idle notification)
+        type: bool  default: --notrace-idle-notification-verbose
+  --trace-gc-verbose (print more details following each garbage collection)
+        type: bool  default: --notrace-gc-verbose
+  --trace-gc-freelists (prints details of each freelist before and after each major garbage collection)
+        type: bool  default: --notrace-gc-freelists
+  --trace-gc-freelists-verbose (prints details of freelists of each page before and after each major garbage collection)
+        type: bool  default: --notrace-gc-freelists-verbose
+  --trace-evacuation-candidates (Show statistics about the pages evacuation by the compaction)
+        type: bool  default: --notrace-evacuation-candidates
+  --trace-allocations-origins (Show statistics about the origins of allocations. Combine with --no-inline-new to track allocations from generated code)
+        type: bool  default: --notrace-allocations-origins
+  --trace-pending-allocations (trace calls to Heap::IsAllocationPending that return true)
+        type: bool  default: --notrace-pending-allocations
+  --trace-allocation-stack-interval (print stack trace after <n> free-list allocations)
+        type: int  default: --trace-allocation-stack-interval=-1
+  --trace-duplicate-threshold-kb (print duplicate objects in the heap if their size is more than given threshold)
+        type: int  default: --trace-duplicate-threshold-kb=0
+  --trace-fragmentation (report fragmentation for old space)
+        type: bool  default: --notrace-fragmentation
+  --trace-fragmentation-verbose (report fragmentation for old space (detailed))
+        type: bool  default: --notrace-fragmentation-verbose
+  --minor-mc-trace-fragmentation (trace fragmentation after marking)
+        type: bool  default: --nominor-mc-trace-fragmentation
+  --trace-evacuation (report evacuation statistics)
+        type: bool  default: --notrace-evacuation
+  --trace-mutator-utilization (print mutator utilization, allocation speed, gc speed)
+        type: bool  default: --notrace-mutator-utilization
+  --incremental-marking (use incremental marking)
+        type: bool  default: --incremental-marking
+  --incremental-marking-wrappers (use incremental marking for marking wrappers)
+        type: bool  default: --incremental-marking-wrappers
+  --incremental-marking-task (use tasks for incremental marking)
+        type: bool  default: --incremental-marking-task
+  --incremental-marking-soft-trigger (threshold for starting incremental marking via a task in percent of available space: limit - size)
+        type: int  default: --incremental-marking-soft-trigger=0
+  --incremental-marking-hard-trigger (threshold for starting incremental marking immediately in percent of available space: limit - size)
+        type: int  default: --incremental-marking-hard-trigger=0
+  --trace-unmapper (Trace the unmapping)
+        type: bool  default: --notrace-unmapper
+  --parallel-scavenge (parallel scavenge)
+        type: bool  default: --parallel-scavenge
+  --scavenge-task (schedule scavenge tasks)
+        type: bool  default: --scavenge-task
+  --scavenge-task-trigger (scavenge task trigger in percent of the current heap limit)
+        type: int  default: --scavenge-task-trigger=80
+  --scavenge-separate-stack-scanning (use a separate phase for stack scanning in scavenge)
+        type: bool  default: --noscavenge-separate-stack-scanning
+  --trace-parallel-scavenge (trace parallel scavenge)
+        type: bool  default: --notrace-parallel-scavenge
+  --concurrent-marking (use concurrent marking)
+        type: bool  default: --concurrent-marking
+  --concurrent-array-buffer-sweeping (concurrently sweep array buffers)
+        type: bool  default: --concurrent-array-buffer-sweeping
+  --stress-concurrent-allocation (start background threads that allocate memory)
+        type: bool  default: --nostress-concurrent-allocation
+  --parallel-marking (use parallel marking in atomic pause)
+        type: bool  default: --parallel-marking
+  --ephemeron-fixpoint-iterations (number of fixpoint iterations it takes to switch to linear ephemeron algorithm)
+        type: int  default: --ephemeron-fixpoint-iterations=10
+  --trace-concurrent-marking (trace concurrent marking)
+        type: bool  default: --notrace-concurrent-marking
+  --concurrent-sweeping (use concurrent sweeping)
+        type: bool  default: --concurrent-sweeping
+  --parallel-compaction (use parallel compaction)
+        type: bool  default: --parallel-compaction
+  --parallel-pointer-update (use parallel pointer update during compaction)
+        type: bool  default: --parallel-pointer-update
+  --detect-ineffective-gcs-near-heap-limit (trigger out-of-memory failure to avoid GC storm near heap limit)
+        type: bool  default: --detect-ineffective-gcs-near-heap-limit
+  --trace-incremental-marking (trace progress of the incremental marking)
+        type: bool  default: --notrace-incremental-marking
+  --trace-stress-marking (trace stress marking progress)
+        type: bool  default: --notrace-stress-marking
+  --trace-stress-scavenge (trace stress scavenge progress)
+        type: bool  default: --notrace-stress-scavenge
+  --track-gc-object-stats (track object counts and memory usage)
+        type: bool  default: --notrack-gc-object-stats
+  --trace-gc-object-stats (trace object counts and memory usage)
+        type: bool  default: --notrace-gc-object-stats
+  --trace-zone-stats (trace zone memory usage)
+        type: bool  default: --notrace-zone-stats
+  --zone-stats-tolerance (report a tick only when allocated zone memory changes by this amount)
+        type: size_t  default: --zone-stats-tolerance=1048576
+  --trace-zone-type-stats (trace per-type zone memory usage)
+        type: bool  default: --notrace-zone-type-stats
+  --track-retaining-path (enable support for tracking retaining path)
+        type: bool  default: --notrack-retaining-path
+  --trace-backing-store (trace backing store events)
+        type: bool  default: --notrace-backing-store
+  --gc-stats (Used by tracing internally to enable gc statistics)
+        type: int  default: --gc-stats=0
+  --track-detached-contexts (track native contexts that are expected to be garbage collected)
+        type: bool  default: --track-detached-contexts
+  --trace-detached-contexts (trace native contexts that are expected to be garbage collected)
+        type: bool  default: --notrace-detached-contexts
+  --verify-heap (verify heap pointers before and after GC)
+        type: bool  default: --noverify-heap
+  --verify-heap-skip-remembered-set (disable remembered set verification)
+        type: bool  default: --noverify-heap-skip-remembered-set
+  --move-object-start (enable moving of object starts)
+        type: bool  default: --move-object-start
+  --memory-reducer (use memory reducer)
+        type: bool  default: --memory-reducer
+  --memory-reducer-for-small-heaps (use memory reducer for small heaps)
+        type: bool  default: --memory-reducer-for-small-heaps
+  --heap-growing-percent (specifies heap growing factor as (1 + heap_growing_percent/100))
+        type: int  default: --heap-growing-percent=0
+  --v8-os-page-size (override OS page size (in KBytes))
+        type: int  default: --v8-os-page-size=0
+  --allocation-buffer-parking (allocation buffer parking)
+        type: bool  default: --allocation-buffer-parking
+  --always-compact (Perform compaction on every full GC)
+        type: bool  default: --noalways-compact
+  --never-compact (Never perform compaction on full GC - testing only)
+        type: bool  default: --nonever-compact
+  --compact-code-space (Compact code space on full collections)
+        type: bool  default: --compact-code-space
+  --flush-baseline-code (flush of baseline code when it has not been executed recently)
+        type: bool  default: --noflush-baseline-code
+  --flush-bytecode (flush of bytecode when it has not been executed recently)
+        type: bool  default: --flush-bytecode
+  --stress-flush-code (stress code flushing)
+        type: bool  default: --nostress-flush-code
+  --trace-flush-bytecode (trace bytecode flushing)
+        type: bool  default: --notrace-flush-bytecode
+  --use-marking-progress-bar (Use a progress bar to scan large objects in increments when incremental marking is active.)
+        type: bool  default: --use-marking-progress-bar
+  --stress-per-context-marking-worklist (Use per-context worklist for marking)
+        type: bool  default: --nostress-per-context-marking-worklist
+  --force-marking-deque-overflows (force overflows of marking deque by reducing it's size to 64 words)
+        type: bool  default: --noforce-marking-deque-overflows
+  --stress-compaction (stress the GC compactor to flush out bugs (implies --force_marking_deque_overflows))
+        type: bool  default: --nostress-compaction
+  --stress-compaction-random (Stress GC compaction by selecting random percent of pages as evacuation candidates. It overrides stress_compaction.)
+        type: bool  default: --nostress-compaction-random
+  --stress-incremental-marking (force incremental marking for small heaps and run it more often)
+        type: bool  default: --nostress-incremental-marking
+  --fuzzer-gc-analysis (prints number of allocations and enables analysis mode for gc fuzz testing, e.g. --stress-marking, --stress-scavenge)
+        type: bool  default: --nofuzzer-gc-analysis
+  --stress-marking (force marking at random points between 0 and X (inclusive) percent of the regular marking start limit)
+        type: int  default: --stress-marking=0
+  --stress-scavenge (force scavenge at random points between 0 and X (inclusive) percent of the new space capacity)
+        type: int  default: --stress-scavenge=0
+  --reclaim-unmodified-wrappers (reclaim otherwise unreachable unmodified wrapper objects when possible)
+        type: bool  default: --reclaim-unmodified-wrappers
+  --gc-experiment-less-compaction (less compaction in non-memory reducing mode)
+        type: bool  default: --nogc-experiment-less-compaction
+  --disable-abortjs (disables AbortJS runtime function)
+        type: bool  default: --nodisable-abortjs
+  --randomize-all-allocations (randomize virtual memory reservations by ignoring any hints passed when allocating pages)
+        type: bool  default: --norandomize-all-allocations
+  --manual-evacuation-candidates-selection (Test mode only flag. It allows an unit test to select evacuation candidates pages (requires --stress_compaction).)
+        type: bool  default: --nomanual-evacuation-candidates-selection
+  --fast-promotion-new-space (fast promote new space on high survival rates)
+        type: bool  default: --nofast-promotion-new-space
+  --clear-free-memory (initialize free memory with 0)
+        type: bool  default: --noclear-free-memory
+  --crash-on-aborted-evacuation (crash when evacuation of page fails)
+        type: bool  default: --nocrash-on-aborted-evacuation
+  --debug-code (generate extra code (assertions) for debugging)
+        type: bool  default: --debug-code
+  --code-comments (emit comments in code disassembly; for more readable source positions you should add --no-concurrent_recompilation)
+        type: bool  default: --nocode-comments
+  --enable-sse3 (enable use of SSE3 instructions if available)
+        type: bool  default: --enable-sse3
+  --enable-ssse3 (enable use of SSSE3 instructions if available)
+        type: bool  default: --enable-ssse3
+  --enable-sse4-1 (enable use of SSE4.1 instructions if available)
+        type: bool  default: --enable-sse4-1
+  --enable-sse4-2 (enable use of SSE4.2 instructions if available)
+        type: bool  default: --enable-sse4-2
+  --enable-sahf (enable use of SAHF instruction if available (X64 only))
+        type: bool  default: --enable-sahf
+  --enable-avx (enable use of AVX instructions if available)
+        type: bool  default: --enable-avx
+  --enable-avx2 (enable use of AVX2 instructions if available)
+        type: bool  default: --enable-avx2
+  --enable-fma3 (enable use of FMA3 instructions if available)
+        type: bool  default: --enable-fma3
+  --enable-bmi1 (enable use of BMI1 instructions if available)
+        type: bool  default: --enable-bmi1
+  --enable-bmi2 (enable use of BMI2 instructions if available)
+        type: bool  default: --enable-bmi2
+  --enable-lzcnt (enable use of LZCNT instruction if available)
+        type: bool  default: --enable-lzcnt
+  --enable-popcnt (enable use of POPCNT instruction if available)
+        type: bool  default: --enable-popcnt
+  --arm-arch (generate instructions for the selected ARM architecture if available: armv6, armv7, armv7+sudiv or armv8)
+        type: string  default: --arm-arch="armv8"
+  --force-long-branches (force all emitted branches to be in long mode (MIPS/PPC only))
+        type: bool  default: --noforce-long-branches
+  --mcpu (enable optimization for specific cpu)
+        type: string  default: --mcpu="auto"
+  --partial-constant-pool (enable use of partial constant pools (X64 only))
+        type: bool  default: --partial-constant-pool
+  --sim-arm64-optional-features (enable optional features on the simulator for testing: none or all)
+        type: string  default: --sim-arm64-optional-features="none"
+  --enable-source-at-csa-bind (Include source information in the binary at CSA bind locations.)
+        type: bool  default: --noenable-source-at-csa-bind
+  --enable-armv7 (deprecated (use --arm_arch instead))
+        type: maybe_bool  default: --enable-armv7=unset
+  --enable-vfp3 (deprecated (use --arm_arch instead))
+        type: maybe_bool  default: --enable-vfp3=unset
+  --enable-32dregs (deprecated (use --arm_arch instead))
+        type: maybe_bool  default: --enable-32dregs=unset
+  --enable-neon (deprecated (use --arm_arch instead))
+        type: maybe_bool  default: --enable-neon=unset
+  --enable-sudiv (deprecated (use --arm_arch instead))
+        type: maybe_bool  default: --enable-sudiv=unset
+  --enable-armv8 (deprecated (use --arm_arch instead))
+        type: maybe_bool  default: --enable-armv8=unset
+  --enable-regexp-unaligned-accesses (enable unaligned accesses for the regexp engine)
+        type: bool  default: --enable-regexp-unaligned-accesses
+  --script-streaming (enable parsing on background)
+        type: bool  default: --script-streaming
+  --stress-background-compile (stress test parsing on background)
+        type: bool  default: --nostress-background-compile
+  --finalize-streaming-on-background (perform the script streaming finalization on the background thread)
+        type: bool  default: --finalize-streaming-on-background
+  --concurrent-cache-deserialization (enable deserializing code caches on background)
+        type: bool  default: --concurrent-cache-deserialization
+  --disable-old-api-accessors (Disable old-style API accessors whose setters trigger through the prototype chain)
+        type: bool  default: --nodisable-old-api-accessors
+  --embedder-instance-types (enable type checks based on instance types provided by the embedder)
+        type: bool  default: --noembedder-instance-types
+  --expose-gc (expose gc extension)
+        type: bool  default: --noexpose-gc
+  --expose-gc-as (expose gc extension under the specified name)
+        type: string  default: --expose-gc-as=""
+  --expose-externalize-string (expose externalize string extension)
+        type: bool  default: --noexpose-externalize-string
+  --expose-trigger-failure (expose trigger-failure extension)
+        type: bool  default: --noexpose-trigger-failure
+  --expose-ignition-statistics (expose ignition-statistics extension (requires building with v8_enable_ignition_dispatch_counting))
+        type: bool  default: --noexpose-ignition-statistics
+  --stack-trace-limit (number of stack frames to capture)
+        type: int  default: --stack-trace-limit=10
+  --builtins-in-stack-traces (show built-in functions in stack traces)
+        type: bool  default: --nobuiltins-in-stack-traces
+  --experimental-stack-trace-frames (enable experimental frames (API/Builtins) and stack trace layout)
+        type: bool  default: --noexperimental-stack-trace-frames
+  --disallow-code-generation-from-strings (disallow eval and friends)
+        type: bool  default: --nodisallow-code-generation-from-strings
+  --expose-async-hooks (expose async_hooks object)
+        type: bool  default: --noexpose-async-hooks
+  --expose-cputracemark-as (expose cputracemark extension under the specified name)
+        type: string  default: --expose-cputracemark-as=""
+  --allow-unsafe-function-constructor (allow invoking the function constructor without security checks)
+        type: bool  default: --noallow-unsafe-function-constructor
+  --force-slow-path (always take the slow path for builtins)
+        type: bool  default: --noforce-slow-path
+  --test-small-max-function-context-stub-size (enable testing the function context size overflow path by making the maximum size smaller)
+        type: bool  default: --notest-small-max-function-context-stub-size
+  --inline-new (use fast inline allocation)
+        type: bool  default: --inline-new
+  --switch-table-spread-threshold (allow the jump table used for switch statements to span a range of integers roughly equal to this number times the number of clauses in the switch)
+        type: int  default: --switch-table-spread-threshold=3
+  --switch-table-min-cases (the number of Smi integer cases present in the switch statement before using the jump table optimization)
+        type: int  default: --switch-table-min-cases=6
+  --trace (trace javascript function calls)
+        type: bool  default: --notrace
+  --lazy (use lazy compilation)
+        type: bool  default: --lazy
+  --lazy-eval (use lazy compilation during eval)
+        type: bool  default: --lazy-eval
+  --lazy-streaming (use lazy compilation during streaming compilation)
+        type: bool  default: --lazy-streaming
+  --max-lazy (ignore eager compilation hints)
+        type: bool  default: --nomax-lazy
+  --trace-opt (trace optimized compilation)
+        type: bool  default: --notrace-opt
+  --trace-opt-verbose (extra verbose optimized compilation tracing)
+        type: bool  default: --notrace-opt-verbose
+  --trace-opt-stats (trace optimized compilation statistics)
+        type: bool  default: --notrace-opt-stats
+  --trace-deopt (trace deoptimization)
+        type: bool  default: --notrace-deopt
+  --log-deopt (log deoptimization)
+        type: bool  default: --nolog-deopt
+  --trace-deopt-verbose (extra verbose deoptimization tracing)
+        type: bool  default: --notrace-deopt-verbose
+  --trace-file-names (include file names in trace-opt/trace-deopt output)
+        type: bool  default: --notrace-file-names
+  --always-opt (always try to optimize functions)
+        type: bool  default: --noalways-opt
+  --always-osr (always try to OSR functions)
+        type: bool  default: --noalways-osr
+  --prepare-always-opt (prepare for turning on always opt)
+        type: bool  default: --noprepare-always-opt
+  --trace-serializer (print code serializer trace)
+        type: bool  default: --notrace-serializer
+  --external-reference-stats (print statistics on external references used during serialization)
+        type: bool  default: --noexternal-reference-stats
+  --compilation-cache (enable compilation cache)
+        type: bool  default: --compilation-cache
+  --cache-prototype-transitions (cache prototype transitions)
+        type: bool  default: --cache-prototype-transitions
+  --parallel-compile-tasks (enable parallel compile tasks)
+        type: bool  default: --noparallel-compile-tasks
+  --lazy-compile-dispatcher (enable compiler dispatcher)
+        type: bool  default: --nolazy-compile-dispatcher
+  --trace-compiler-dispatcher (trace compiler dispatcher activity)
+        type: bool  default: --notrace-compiler-dispatcher
+  --cpu-profiler-sampling-interval (CPU profiler sampling interval in microseconds)
+        type: int  default: --cpu-profiler-sampling-interval=1000
+  --trace-side-effect-free-debug-evaluate (print debug messages for side-effect-free debug-evaluate for testing)
+        type: bool  default: --notrace-side-effect-free-debug-evaluate
+  --hard-abort (abort by crashing)
+        type: bool  default: --hard-abort
+  --log-colour (When logging, try to use coloured output.)
+        type: bool  default: --log-colour
+  --expose-inspector-scripts (expose injected-script-source.js for debugging)
+        type: bool  default: --noexpose-inspector-scripts
+  --stack-size (default size of stack region v8 is allowed to use (in kBytes))
+        type: int  default: --stack-size=864
+  --max-stack-trace-source-length (maximum length of function source code printed in a stack trace.)
+        type: int  default: --max-stack-trace-source-length=300
+  --clear-exceptions-on-js-entry (clear pending exceptions when entering JavaScript)
+        type: bool  default: --noclear-exceptions-on-js-entry
+  --histogram-interval (time interval in ms for aggregating memory histograms)
+        type: int  default: --histogram-interval=600000
+  --heap-profiler-trace-objects (Dump heap object allocations/movements/size_updates)
+        type: bool  default: --noheap-profiler-trace-objects
+  --heap-profiler-use-embedder-graph (Use the new EmbedderGraph API to get embedder nodes)
+        type: bool  default: --heap-profiler-use-embedder-graph
+  --heap-snapshot-string-limit (truncate strings to this length in the heap snapshot)
+        type: int  default: --heap-snapshot-string-limit=1024
+  --heap-profiler-show-hidden-objects (use 'native' rather than 'hidden' node type in snapshot)
+        type: bool  default: --noheap-profiler-show-hidden-objects
+  --sampling-heap-profiler-suppress-randomness (Use constant sample intervals to eliminate test flakiness)
+        type: bool  default: --nosampling-heap-profiler-suppress-randomness
+  --use-idle-notification (Use idle notification to reduce memory footprint.)
+        type: bool  default: --use-idle-notification
+  --log-ic (Log inline cache state transitions for tools/ic-processor)
+        type: bool  default: --nolog-ic
+  --max-valid-polymorphic-map-count (maximum number of valid maps to track in POLYMORPHIC state)
+        type: int  default: --max-valid-polymorphic-map-count=4
+  --native-code-counters (generate extra code for manipulating stats counters)
+        type: bool  default: --native-code-counters
+  --super-ic (use an IC for super property loads)
+        type: bool  default: --super-ic
+  --enable-mega-dom-ic (use MegaDOM IC state for API objects)
+        type: bool  default: --noenable-mega-dom-ic
+  --trace-prototype-users (Trace updates to prototype user tracking)
+        type: bool  default: --notrace-prototype-users
+  --trace-for-in-enumerate (Trace for-in enumerate slow-paths)
+        type: bool  default: --notrace-for-in-enumerate
+  --log-maps (Log map creation)
+        type: bool  default: --nolog-maps
+  --log-maps-details (Also log map details)
+        type: bool  default: --log-maps-details
+  --allow-natives-syntax (allow natives syntax)
+        type: bool  default: --noallow-natives-syntax
+  --allow-natives-for-differential-fuzzing (allow only natives explicitly allowlisted for differential fuzzers)
+        type: bool  default: --noallow-natives-for-differential-fuzzing
+  --parse-only (only parse the sources)
+        type: bool  default: --noparse-only
+  --sim-abort-on-bad-auth (Stop execution when a pointer authentication fails in the ARM64 simulator.)
+        type: bool  default: --sim-abort-on-bad-auth
+  --async-stack-traces (include async stack traces in Error.stack)
+        type: bool  default: --async-stack-traces
+  --stack-trace-on-illegal (print stack trace when an illegal exception is thrown)
+        type: bool  default: --nostack-trace-on-illegal
+  --abort-on-uncaught-exception (abort program (dump core) when an uncaught exception is thrown)
+        type: bool  default: --noabort-on-uncaught-exception
+  --correctness-fuzzer-suppressions (Suppress certain unspecified behaviors to ease correctness fuzzing: Abort program when the stack overflows or a string exceeds maximum length (as opposed to throwing RangeError). Use a fixed suppression string for error messages.)
+        type: bool  default: --nocorrectness-fuzzer-suppressions
+  --randomize-hashes (randomize hashes to avoid predictable hash collisions (with snapshots this option cannot override the baked-in seed))
+        type: bool  default: --randomize-hashes
+  --rehash-snapshot (rehash strings from the snapshot to override the baked-in seed)
+        type: bool  default: --rehash-snapshot
+  --hash-seed (Fixed seed to use to hash property keys (0 means random)(with snapshots this option cannot override the baked-in seed))
+        type: uint64  default: --hash-seed=0
+  --random-seed (Default seed for initializing random generator (0, the default, means to use system random).)
+        type: int  default: --random-seed=0
+  --fuzzer-random-seed (Default seed for initializing fuzzer random generator (0, the default, means to use v8's random number generator seed).)
+        type: int  default: --fuzzer-random-seed=0
+  --trace-rail (trace RAIL mode)
+        type: bool  default: --notrace-rail
+  --print-all-exceptions (print exception object and stack trace on each thrown exception)
+        type: bool  default: --noprint-all-exceptions
+  --detailed-error-stack-trace (includes arguments for each function call in the error stack frames array)
+        type: bool  default: --nodetailed-error-stack-trace
+  --adjust-os-scheduling-parameters (adjust OS specific scheduling params for the isolate)
+        type: bool  default: --adjust-os-scheduling-parameters
+  --experimental-flush-embedded-blob-icache (Used in an experiment to evaluate icache flushing on certain CPUs)
+        type: bool  default: --experimental-flush-embedded-blob-icache
+  --short-builtin-calls (Put embedded builtins code into the code range for shorter builtin calls/jumps if system has >=4GB memory)
+        type: bool  default: --short-builtin-calls
+  --runtime-call-stats (report runtime call counts and times)
+        type: bool  default: --noruntime-call-stats
+  --rcs (report runtime call counts and times)
+        type: bool  default: --norcs
+  --rcs-cpu-time (report runtime times in cpu time (the default is wall time))
+        type: bool  default: --norcs-cpu-time
+  --skip-snapshot-checksum (Skip snapshot checksum calculation when deserializing an Isolate.)
+        type: bool  default: --noskip-snapshot-checksum
+  --profile-deserialization (Print the time it takes to deserialize the snapshot.)
+        type: bool  default: --noprofile-deserialization
+  --serialization-statistics (Collect statistics on serialized objects.)
+        type: bool  default: --noserialization-statistics
+  --regexp-optimization (generate optimized regexp code)
+        type: bool  default: --regexp-optimization
+  --regexp-interpret-all (interpret all regexp code)
+        type: bool  default: --noregexp-interpret-all
+  --regexp-tier-up (enable regexp interpreter and tier up to the compiler after the number of executions set by the tier up ticks flag)
+        type: bool  default: --regexp-tier-up
+  --regexp-tier-up-ticks (set the number of executions for the regexp interpreter before tiering-up to the compiler)
+        type: int  default: --regexp-tier-up-ticks=1
+  --regexp-peephole-optimization (enable peephole optimization for regexp bytecode)
+        type: bool  default: --regexp-peephole-optimization
+  --trace-regexp-peephole-optimization (trace regexp bytecode peephole optimization)
+        type: bool  default: --notrace-regexp-peephole-optimization
+  --trace-regexp-bytecodes (trace regexp bytecode execution)
+        type: bool  default: --notrace-regexp-bytecodes
+  --trace-regexp-assembler (trace regexp macro assembler calls.)
+        type: bool  default: --notrace-regexp-assembler
+  --trace-regexp-parser (trace regexp parsing)
+        type: bool  default: --notrace-regexp-parser
+  --trace-regexp-tier-up (trace regexp tiering up execution)
+        type: bool  default: --notrace-regexp-tier-up
+  --trace-regexp-graph (trace the regexp graph)
+        type: bool  default: --notrace-regexp-graph
+  --enable-experimental-regexp-engine (recognize regexps with 'l' flag, run them on experimental engine)
+        type: bool  default: --noenable-experimental-regexp-engine
+  --default-to-experimental-regexp-engine (run regexps with the experimental engine where possible)
+        type: bool  default: --nodefault-to-experimental-regexp-engine
+  --trace-experimental-regexp-engine (trace execution of experimental regexp engine)
+        type: bool  default: --notrace-experimental-regexp-engine
+  --enable-experimental-regexp-engine-on-excessive-backtracks (fall back to a breadth-first regexp engine on excessive backtracking)
+        type: bool  default: --noenable-experimental-regexp-engine-on-excessive-backtracks
+  --regexp-backtracks-before-fallback (number of backtracks during regexp execution before fall back to experimental engine if enable_experimental_regexp_engine_on_excessive_backtracks is set)
+        type: uint  default: --regexp-backtracks-before-fallback=50000
+  --testing-bool-flag (testing_bool_flag)
+        type: bool  default: --testing-bool-flag
+  --testing-maybe-bool-flag (testing_maybe_bool_flag)
+        type: maybe_bool  default: --testing-maybe-bool-flag=unset
+  --testing-int-flag (testing_int_flag)
+        type: int  default: --testing-int-flag=13
+  --testing-float-flag (float-flag)
+        type: float  default: --testing-float-flag=2.5
+  --testing-string-flag (string-flag)
+        type: string  default: --testing-string-flag="Hello, world!"
+  --testing-prng-seed (Seed used for threading test randomness)
+        type: int  default: --testing-prng-seed=42
+  --testing-d8-test-runner (test runner turns on this flag to enable a check that the function was prepared for optimization before marking it for optimization)
+        type: bool  default: --notesting-d8-test-runner
+  --fuzzing (Fuzzers use this flag to signal that they are ... fuzzing. This causes intrinsics to fail silently (e.g. return undefined) on invalid usage.)
+        type: bool  default: --nofuzzing
+  --embedded-src (Path for the generated embedded data file. (mksnapshot only))
+        type: string  default: --embedded-src=""
+  --embedded-variant (Label to disambiguate symbols in embedded data file. (mksnapshot only))
+        type: string  default: --embedded-variant=""
+  --startup-src (Write V8 startup as C++ src. (mksnapshot only))
+        type: string  default: --startup-src=""
+  --startup-blob (Write V8 startup blob file. (mksnapshot only))
+        type: string  default: --startup-blob=""
+  --target-arch (The mksnapshot target arch. (mksnapshot only))
+        type: string  default: --target-arch=""
+  --target-os (The mksnapshot target os. (mksnapshot only))
+        type: string  default: --target-os=""
+  --target-is-simulator (Instruct mksnapshot that the target is meant to run in the simulator and it can generate simulator-specific instructions. (mksnapshot only))
+        type: bool  default: --notarget-is-simulator
+  --turbo-profiling-log-file (Path of the input file containing basic block counters for builtins. (mksnapshot only))
+        type: string  default: --turbo-profiling-log-file=""
+  --text-is-readable (Whether the .text section of binary can be read)
+        type: bool  default: --text-is-readable
+  --trace-minor-mc-parallel-marking (trace parallel marking for the young generation)
+        type: bool  default: --notrace-minor-mc-parallel-marking
+  --minor-mc (perform young generation mark compact GCs)
+        type: bool  default: --nominor-mc
+  --help (Print usage message, including flags, on console)
+        type: bool  default: --help
+  --print-flag-values (Print all flag values of V8)
+        type: bool  default: --noprint-flag-values
+  --dump-counters (Dump counters on exit)
+        type: bool  default: --nodump-counters
+  --slow-histograms (Enable slow histograms with more overhead.)
+        type: bool  default: --noslow-histograms
+  --dump-counters-nvp (Dump counters as name-value pairs on exit)
+        type: bool  default: --nodump-counters-nvp
+  --use-external-strings (Use external strings for source code)
+        type: bool  default: --nouse-external-strings
+  --map-counters (Map counters to a file)
+        type: string  default: --map-counters=""
+  --mock-arraybuffer-allocator (Use a mock ArrayBuffer allocator for testing.)
+        type: bool  default: --nomock-arraybuffer-allocator
+  --mock-arraybuffer-allocator-limit (Memory limit for mock ArrayBuffer allocator used to simulate OOM for testing.)
+        type: size_t  default: --mock-arraybuffer-allocator-limit=0
+  --enable-slow-asserts (enable asserts that are slow to execute)
+        type: bool  default: --enable-slow-asserts
+  --print-ast (print source AST)
+        type: bool  default: --noprint-ast
+  --trap-on-abort (replace aborts by breakpoints)
+        type: bool  default: --notrap-on-abort
+  --print-scopes (print scopes)
+        type: bool  default: --noprint-scopes
+  --trace-contexts (trace contexts operations)
+        type: bool  default: --notrace-contexts
+  --gc-verbose (print stuff during garbage collection)
+        type: bool  default: --nogc-verbose
+  --code-stats (report code statistics after GC)
+        type: bool  default: --nocode-stats
+  --print-handles (report handles after GC)
+        type: bool  default: --noprint-handles
+  --check-handle-count (Check that there are not too many handles at GC)
+        type: bool  default: --nocheck-handle-count
+  --print-global-handles (report global handles after GC)
+        type: bool  default: --noprint-global-handles
+  --trace-turbo-escape (enable tracing in escape analysis)
+        type: bool  default: --notrace-turbo-escape
+  --trace-module-status (Trace status transitions of ECMAScript modules)
+        type: bool  default: --notrace-module-status
+  --trace-normalization (prints when objects are turned into dictionaries.)
+        type: bool  default: --notrace-normalization
+  --trace-lazy (trace lazy compilation)
+        type: bool  default: --notrace-lazy
+  --trace-isolates (trace isolate state changes)
+        type: bool  default: --notrace-isolates
+  --regexp-possessive-quantifier (enable possessive quantifier syntax for testing)
+        type: bool  default: --noregexp-possessive-quantifier
+  --print-break-location (print source location on debug break)
+        type: bool  default: --noprint-break-location
+  --logfile (Specify the name of the log file, use '-' for console, '+' for a temporary file.)
+        type: string  default: --logfile="v8.log"
+  --logfile-per-isolate (Separate log files for each isolate.)
+        type: bool  default: --logfile-per-isolate
+  --log (Minimal logging (no API, code, GC, suspect, or handles samples).)
+        type: bool  default: --nolog
+  --log-all (Log all events to the log file.)
+        type: bool  default: --nolog-all
+  --log-api (Log API events to the log file.)
+        type: bool  default: --nolog-api
+  --log-code (Log code events to the log file without profiling.)
+        type: bool  default: --nolog-code
+  --log-code-disassemble (Log all disassembled code to the log file.)
+        type: bool  default: --nolog-code-disassemble
+  --log-handles (Log global handle events.)
+        type: bool  default: --nolog-handles
+  --log-suspect (Log suspect operations.)
+        type: bool  default: --nolog-suspect
+  --log-source-code (Log source code.)
+        type: bool  default: --nolog-source-code
+  --log-function-events (Log function events (parse, compile, execute) separately.)
+        type: bool  default: --nolog-function-events
+  --detailed-line-info (Always generate detailed line information for CPU profiling.)
+        type: bool  default: --nodetailed-line-info
+  --prof-sampling-interval (Interval for --prof samples (in microseconds).)
+        type: int  default: --prof-sampling-interval=1000
+  --prof-cpp (Like --prof, but ignore generated code.)
+        type: bool  default: --noprof-cpp
+  --prof-browser-mode (Used with --prof, turns on browser-compatible mode for profiling.)
+        type: bool  default: --prof-browser-mode
+  --prof (Log statistical profiling information (implies --log-code).)
+        type: bool  default: --noprof
+  --ll-prof (Enable low-level linux profiler.)
+        type: bool  default: --noll-prof
+  --gc-fake-mmap (Specify the name of the file for fake gc mmap used in ll_prof)
+        type: string  default: --gc-fake-mmap="/tmp/__v8_gc__"
+  --log-internal-timer-events (Time internal events.)
+        type: bool  default: --nolog-internal-timer-events
+  --redirect-code-traces (output deopt information and disassembly into file code-<pid>-<isolate id>.asm)
+        type: bool  default: --noredirect-code-traces
+  --redirect-code-traces-to (output deopt information and disassembly into the given file)
+        type: string  default: --redirect-code-traces-to=""
+  --print-opt-source (print source code of optimized and inlined functions)
+        type: bool  default: --noprint-opt-source
+  --vtune-prof-annotate-wasm (Used when v8_enable_vtunejit is enabled, load wasm source map and provide annotate support (experimental).)
+        type: bool  default: --novtune-prof-annotate-wasm
+  --win64-unwinding-info (Enable unwinding info for Windows/x64)
+        type: bool  default: --win64-unwinding-info
+  --interpreted-frames-native-stack (Show interpreted frames on the native stack (useful for external profilers).)
+        type: bool  default: --nointerpreted-frames-native-stack
+  --enable-system-instrumentation (Enable platform-specific profiling.)
+        type: bool  default: --noenable-system-instrumentation
+  --trace-elements-transitions (trace elements transitions)
+        type: bool  default: --notrace-elements-transitions
+  --trace-creation-allocation-sites (trace the creation of allocation sites)
+        type: bool  default: --notrace-creation-allocation-sites
+  --print-code (print generated code)
+        type: bool  default: --noprint-code
+  --print-opt-code (print optimized code)
+        type: bool  default: --noprint-opt-code
+  --print-opt-code-filter (filter for printing optimized code)
+        type: string  default: --print-opt-code-filter="*"
+  --print-code-verbose (print more information for code)
+        type: bool  default: --noprint-code-verbose
+  --print-builtin-code (print generated code for builtins)
+        type: bool  default: --noprint-builtin-code
+  --print-builtin-code-filter (filter for printing builtin code)
+        type: string  default: --print-builtin-code-filter="*"
+  --print-regexp-code (print generated regexp code)
+        type: bool  default: --noprint-regexp-code
+  --print-regexp-bytecode (print generated regexp bytecode)
+        type: bool  default: --noprint-regexp-bytecode
+  --print-builtin-size (print code size for builtins)
+        type: bool  default: --noprint-builtin-size
+  --print-all-code (enable all flags related to printing code)
+        type: bool  default: --noprint-all-code
+  --predictable (enable predictable mode)
+        type: bool  default: --nopredictable
+  --predictable-gc-schedule (Predictable garbage collection schedule. Fixes heap growing, idle, and memory reducing behavior.)
+        type: bool  default: --nopredictable-gc-schedule
+  --single-threaded (disable the use of background tasks)
+        type: bool  default: --nosingle-threaded
+  --single-threaded-gc (disable the use of background gc tasks)
+        type: bool  default: --nosingle-threaded-gc
+  --experimental-web-snapshots (interpret scripts as web snapshots if they start with a magic number)
+        type: bool  default: --noexperimental-web-snapshots

@@ -1,0 +1,48 @@
+[generating bytecode for function: ]
+--- AST ---
+FUNC at 0
+. KIND 0
+. LITERAL ID 0
+. SUSPEND COUNT 0
+. NAME ""
+. INFERRED NAME ""
+. DECLS
+. . FUNCTION "add" = function add
+. EXPRESSION STATEMENT at 53
+. . CALL
+. . . VAR PROXY unallocated (0x14c85e870) (mode = VAR, assigned = true) "add"
+. . . LITERAL 1
+. . . LITERAL 2
+. EXPRESSION STATEMENT at 64
+. . CALL
+. . . VAR PROXY unallocated (0x14c85e870) (mode = VAR, assigned = true) "add"
+. . . LITERAL 3
+. . . LITERAL 4
+. EXPRESSION STATEMENT at 140
+. . ASSIGN at -1
+. . . VAR PROXY local[0] (0x14c85ea78) (mode = TEMPORARY, assigned = true) ".result"
+. . . CALL
+. . . . VAR PROXY unallocated (0x14c85e870) (mode = VAR, assigned = true) "add"
+. . . . LITERAL 5
+. . . . LITERAL 6
+. RETURN at -1
+. . VAR PROXY local[0] (0x14c85ea78) (mode = TEMPORARY, assigned = true) ".result"
+
+[generating bytecode for function: add]
+--- AST ---
+FUNC at 25
+. KIND 0
+. LITERAL ID 1
+. SUSPEND COUNT 0
+. NAME "add"
+. PARAMS
+. . VAR (0x14c85e8d8) (mode = VAR, assigned = false) "a"
+. . VAR (0x14c85e980) (mode = VAR, assigned = false) "b"
+. DECLS
+. . VARIABLE (0x14c85e8d8) (mode = VAR, assigned = false) "a"
+. . VARIABLE (0x14c85e980) (mode = VAR, assigned = false) "b"
+. RETURN at 36
+. . ADD at 45
+. . . VAR PROXY parameter[0] (0x14c85e8d8) (mode = VAR, assigned = false) "a"
+. . . VAR PROXY parameter[1] (0x14c85e980) (mode = VAR, assigned = false) "b"
+

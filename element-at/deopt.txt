@@ -1,0 +1,175 @@
+--- Raw source ---
+(a, b) {
+  return a + b;
+}
+
+
+--- Optimized code ---
+optimization_id = 0
+source_position = 25
+kind = TURBOFAN
+name = add
+stack_slots = 6
+compiler = turbofan
+address = 0x33ad00048001
+
+Instructions (size = 232)
+                  [ Frame: MANUAL
+                  -- <not inlined:25> --
+                  -- Prologue: check code start register --
+0x33ad00048040     0  10000010       adr x16, #+0x0 (addr 0x33ad00048040)
+0x33ad00048044     4  eb02021f       cmp x16, x2
+0x33ad00048048     8  54000060       b.eq #+0xc (addr 0x33ad00048054)
+                    [ Abort
+                  Abort message: 
+                  Wrong value in code start register passed
+0x33ad0004804c     c  d2800e41       movz x1, #0x72
+                      [ CallBuiltin
+                  [ Inlined Trampoline to Abort
+0x33ad00048050    10  95e56d8c       bl #+0x795b630 (addr 0x33ad079a3680)    ;; runtime entry
+                      ]
+                    ]
+                  -- Prologue: check for deoptimization --
+                    [ DecompressTaggedPointer
+0x33ad00048054    14  b85d0050       ldur w16, [x2, #-48]
+0x33ad00048058    18  8b100390       add x16, x28, x16
+                    ]
+0x33ad0004805c    1c  b8407210       ldur w16, [x16, #7]
+0x33ad00048060    20  36000050       tbz w16, #0, #+0x8 (addr 0x33ad00048068)
+                    [ TailCallBuiltin
+                  [ Inlined Trampoline to CompileLazyDeoptimizedCode
+0x33ad00048064    24  15e1be9f       b #+0x786fa7c (addr 0x33ad078b7ae0)    ;; runtime entry
+                    ]
+                  -- B0 start (construct frame) --
+                    [ AssertSpAligned
+0x33ad00048068    28  910003f0       mov x16, sp
+                      [ LogicalMacro
+0x33ad0004806c    2c  f2400e1f       tst x16, #0xf
+                      ]
+0x33ad00048070    30  540000c0       b.eq #+0x18 (addr 0x33ad00048088)
+                      [ Abort
+                  Abort message: 
+                  The stack pointer is not the expected value
+                        [ Frame: NO_FRAME_TYPE
+0x33ad00048074    34  52800660       movz w0, #0x33
+0x33ad00048078    38  d29c2490       movz x16, #0xe124
+0x33ad0004807c    3c  f2a08150       movk x16, #0x40a, lsl #16
+0x33ad00048080    40  f2c00030       movk x16, #0x1, lsl #32
+0x33ad00048084    44  d63f0200       blr x16
+                        ]
+                      ]
+                    ]
+                    [ Prologue
+0x33ad00048088    48  a9bf7bfd       stp fp, lr, [sp, #-16]!
+0x33ad0004808c    4c  910003fd       mov fp, sp
+0x33ad00048090    50  a9be03ff       stp xzr, x0, [sp, #-32]!
+0x33ad00048094    54  a9016fe1       stp x1, cp, [sp, #16]
+                    ]
+0x33ad00048098    58  f9401342       ldr x2, [x26, #32]
+0x33ad0004809c    5c  f90003fb       str cp, [sp]
+0x33ad000480a0    60  eb2263ff       cmp sp, x2
+0x33ad000480a4    64  54000049       b.ls #+0x8 (addr 0x33ad000480ac)
+                  -- B2 start --
+                  -- B3 start --
+                  -- <not inlined:45> --
+0x33ad000480a8    68  1400001e       b #+0x78 (addr 0x33ad00048120)
+                  -- B4 start (no frame) --
+                  -- B1 start (deferred) --
+                  -- <not inlined:25> --
+0x33ad000480ac    6c  d2801002       movz x2, #0x80
+                    [ AssertSpAligned
+0x33ad000480b0    70  910003f0       mov x16, sp
+                      [ LogicalMacro
+0x33ad000480b4    74  f2400e1f       tst x16, #0xf
+                      ]
+0x33ad000480b8    78  540000c0       b.eq #+0x18 (addr 0x33ad000480d0)
+                      [ Abort
+                  Abort message: 
+                  The stack pointer is not the expected value
+                        [ Frame: NO_FRAME_TYPE
+0x33ad000480bc    7c  52800660       movz w0, #0x33
+0x33ad000480c0    80  d29c2490       movz x16, #0xe124
+0x33ad000480c4    84  f2a08150       movk x16, #0x40a, lsl #16
+0x33ad000480c8    88  f2c00030       movk x16, #0x1, lsl #32
+0x33ad000480cc    8c  d63f0200       blr x16
+                        ]
+                      ]
+                    ]
+0x33ad000480d0    90  d10043ff       sub sp, sp, #0x10 (16)
+0x33ad000480d4    94  f90007ff       str xzr, [sp, #8]
+0x33ad000480d8    98  f90003e2       str x2, [sp]
+0x33ad000480dc    9c  d2937881       movz x1, #0x9bc4
+0x33ad000480e0    a0  f2a09ca1       movk x1, #0x4e5, lsl #16
+0x33ad000480e4    a4  f2c00021       movk x1, #0x1, lsl #32
+0x33ad000480e8    a8  d2800020       movz x0, #0x1
+0x33ad000480ec    ac  580000fb       ldr cp, pc+28 (addr 0x000033ad00048108)    ;; object: 0x33ad08283649 <NativeContext[262]>
+                    [ CallBuiltin
+                  [ Inlined Trampoline to CEntry_Return1_DontSaveFPRegs_ArgvOnStack_NoBuiltinExit
+0x33ad000480f0    b0  95ec361c       bl #+0x7b0d870 (addr 0x33ad07b55960)    ;; runtime entry
+                    ]
+0x33ad000480f4    b4  17ffffed       b #-0x4c (addr 0x33ad000480a8)
+0x33ad000480f8    b8  d503201f       nop
+                  [ Constant Pool
+0x33ad000480fc    bc  5800009f       constant pool begin (num_const = 4)    ;; constant pool
+0x33ad00048100    c0  d63f03e0       constant
+0x33ad00048104    c4  d503201f       constant
+0x33ad00048108    c8  08283649       constant
+0x33ad0004810c    cc  000033ad       constant
+                  ]
+                    [ EntryFromBuiltinAsOperand
+                    ]
+0x33ad00048110    d0  f9402750       ldr x16, [x26, #72]
+0x33ad00048114    d4  d61f0200       br x16
+                    [ EntryFromBuiltinAsOperand
+                    ]
+0x33ad00048118    d8  f9402f50       ldr x16, [x26, #88]
+0x33ad0004811c    dc  d61f0200       br x16
+                    [ CallForDeoptimization
+0x33ad00048120    e0  97fffffc       bl #-0x10 (addr 0x33ad00048110)    ;; debug: deopt position, script offset '2d'
+                                                             ;; debug: deopt position, inlining id 'ffffffff'
+                                                             ;; debug: deopt reason 'Insufficient type feedback for binary operation'
+                                                             ;; debug: deopt index 0
+                                                             ;; debug: deopt node id 11
+                    ]
+                    [ CallForDeoptimization
+0x33ad00048124    e4  97fffffd       bl #-0xc (addr 0x33ad00048118)    ;; debug: deopt position, script offset '19'
+                                                             ;; debug: deopt position, inlining id 'ffffffff'
+                                                             ;; debug: deopt reason '(unknown)'
+                                                             ;; debug: deopt index 1
+                                                             ;; debug: deopt node id 9
+
+Source positions:
+ pc offset  position
+         0        25
+        68        45
+        6c        25
+
+Inlined functions (count = 0)
+
+Deoptimization Input Data (deopt points = 2)
+ index  bytecode-offset  node-id    pc
+     0                2       17    NA 
+     1               -1        9    b4 
+
+Safepoints (size = 21)
+0x33ad000480f4      b4    e4  10000000 (sp -> fp)       1
+
+RelocInfo (size = 69)
+0x33ad00048050  runtime entry
+0x33ad00048064  runtime entry
+0x33ad000480ec  full embedded object  (0x33ad08283649 <NativeContext[262]>)
+0x33ad000480f0  runtime entry
+0x33ad000480fc  constant pool (size 20)
+0x33ad00048120  deopt script offset  (45)
+0x33ad00048120  deopt inlining id  (-1)
+0x33ad00048120  deopt reason  (Insufficient type feedback for binary operation)
+0x33ad00048120  deopt index
+0x33ad00048120  deopt node id
+0x33ad00048124  deopt script offset  (25)
+0x33ad00048124  deopt inlining id  (-1)
+0x33ad00048124  deopt reason  ((unknown))
+0x33ad00048124  deopt index
+0x33ad00048124  deopt node id
+
+--- End code ---
+[bailout (kind: deopt-soft, reason: Insufficient type feedback for binary operation): begin. deoptimizing 0x33ad08293599 <JSFunction add (sfi = 0x33ad0829342d)>, opt id 0, node id 17, bytecode offset 2, deopt exit 0, FP to SP delta 32, caller SP 0x00016ce00bd8, pc 0x33ad00048124]

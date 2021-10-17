@@ -1,0 +1,52 @@
+[generating bytecode for function: ]
+--- AST ---
+FUNC at 0
+. KIND 0
+. LITERAL ID 0
+. SUSPEND COUNT 0
+. NAME ""
+. INFERRED NAME ""
+. DECLS
+. . VARIABLE (0x12385e690) (mode = CONST, assigned = false) "array"
+. BLOCK NOCOMPLETIONS at -1
+. . EXPRESSION STATEMENT at 14
+. . . INIT at 14
+. . . . VAR PROXY context[2] (0x12385e690) (mode = CONST, assigned = false) "array"
+. . . . ARRAY LITERAL at 14
+. . . . . VALUES at 14
+. . . . . . LITERAL 1
+. . . . . . LITERAL 2
+. . . . . . LITERAL 3
+. . . . . . LITERAL 4
+. EXPRESSION STATEMENT at 29
+. . ASSIGN at -1
+. . . VAR PROXY local[0] (0x12385ecb0) (mode = TEMPORARY, assigned = true) ".result"
+. . . CALL
+. . . . PROPERTY at 35
+. . . . . VAR PROXY context[2] (0x12385e690) (mode = CONST, assigned = false) "array"
+. . . . . NAME reduce
+. . . . FUNC LITERAL at 42
+. . . . . LITERAL ID 1
+. . . . . NAME 
+. . . . . INFERRED NAME 
+. RETURN at -1
+. . VAR PROXY local[0] (0x12385ecb0) (mode = TEMPORARY, assigned = true) ".result"
+
+[generating bytecode for function: ]
+--- AST ---
+FUNC at 42
+. KIND 11
+. LITERAL ID 1
+. SUSPEND COUNT 0
+. NAME ""
+. PARAMS
+. . VAR (0x12385e858) (mode = VAR, assigned = false) "previousValue"
+. . VAR (0x12385e908) (mode = VAR, assigned = false) "currentValue"
+. DECLS
+. . VARIABLE (0x12385e858) (mode = VAR, assigned = false) "previousValue"
+. . VARIABLE (0x12385e908) (mode = VAR, assigned = false) "currentValue"
+. RETURN at 89
+. . ADD at 89
+. . . VAR PROXY parameter[0] (0x12385e858) (mode = VAR, assigned = false) "previousValue"
+. . . VAR PROXY parameter[1] (0x12385e908) (mode = VAR, assigned = false) "currentValue"
+
