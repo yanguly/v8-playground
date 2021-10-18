@@ -1,0 +1,14 @@
+Considering 0x1370204c8 {0x1a6608293455 <SharedFunctionInfo square>} for inlining with 0x137020a80 {0x1a6608293715 <FeedbackVector[1]>}
+Inlining small function(s) at call site #46:JSCall
+Inlining 0x1370204c8 {0x1a6608293455 <SharedFunctionInfo square>} into 0x137020228 {0x1a660829348d <SharedFunctionInfo f>}
+Considering 0x1470190c8 {0x1a6608293455 <SharedFunctionInfo square>} for inlining with 0x147019680 {0x1a6608293715 <FeedbackVector[1]>}
+Inlining small function(s) at call site #39:JSCall
+Inlining 0x1470190c8 {0x1a6608293455 <SharedFunctionInfo square>} into 0x147018e28 {0x1a660829348d <SharedFunctionInfo f>}
+Considering 0x137818ac8 {0x1a660829348d <SharedFunctionInfo f>} for inlining with 0x137819050 {0x1a66082937c1 <FeedbackVector[7]>}
+1 candidate(s) for inlining:
+- candidate: JSCall node #46 with frequency 8723, 1 target(s):
+  - target: 0x137818ac8 {0x1a660829348d <SharedFunctionInfo f>}, bytecode size: 37, existing opt code's inlined bytecode size: 6
+Inlining 0x137818ac8 {0x1a660829348d <SharedFunctionInfo f>} into 0x137818828 {0x1a66082933f5 <SharedFunctionInfo>}
+Considering 0x137819190 {0x1a6608293455 <SharedFunctionInfo square>} for inlining with 0x137819790 {0x1a6608293715 <FeedbackVector[1]>}
+Inlining small function(s) at call site #91:JSCall
+Inlining 0x137819190 {0x1a6608293455 <SharedFunctionInfo square>} into 0x137818828 {0x1a66082933f5 <SharedFunctionInfo>}
