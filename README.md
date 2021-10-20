@@ -33,3 +33,5 @@
 [Modern attacks on the Chrome browser: optimisations and deoptimisations](https://doar-e.github.io/blog/2020/11/17/modern-attacks-on-the-chrome-browser-optimizations-and-deoptimizations/#simplified-lowering)
 
 [Notes about V8 deoptimizations](https://yuvaly0.github.io/2021/02/26/notes-v8-deoptimization)
+
+[TurboFan inlining, mother of all optimisations, document](https://docs.google.com/document/d/1l-oZOW3uU4kSAHccaMuUMl_RCwuQC526s0hcNVeAM1E/edit)
