@@ -1,6 +1,4 @@
-# Bailouts and optimizations
-
-## My V8 and D8 playground
+# Bailouts and optimizations in V8 and other JS engines
 
 ### Useful links
 
